@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rewrite Five Weak Requests</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">
+      <span class="mono schema">AAI-E-MC1-S02-LAB01</span>
+      <span class="badge">Practical Lab Task</span>
+      <span class="badge">1.5 hrs</span>
+      <span class="badge">Practical</span>
+    </div>
+    <h1>Rewrite Five Weak Requests</h1>
+    <p class="subtitle">Find what's missing. Rewrite it. Compare both answers.</p>
+  </header>
+
+  <div class="progress" aria-hidden="true">
+    <span class="progress-dot active" data-dot="1"></span>
+    <span class="progress-dot" data-dot="2"></span>
+    <span class="progress-dot" data-dot="3"></span>
+    <span class="progress-dot" data-dot="4"></span>
+    <span class="progress-dot" data-dot="5"></span>
+    <span class="progress-dot" data-dot="6"></span>
+    <span class="progress-dot" data-dot="7"></span>
+  </div>
+
+  <!-- PAGE 1 — intro -->
+  <div id="page-1" class="page">
+
+    <section>
+      <h2>How this works</h2>
+      <p>You will see 5 weak requests. Each one is missing something.</p>
+
+      <div class="step-flow">
+        <div class="recap-node c1">
+          <span class="recap-num">1</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <p>Find what's missing &mdash; context, role, task or format.</p>
+        </div>
+        <svg class="step-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+        <div class="recap-node c4">
+          <span class="recap-num">2</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg>
+          <p>Rewrite the request with the missing part added.</p>
+        </div>
+        <svg class="step-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+        <div class="recap-node c2">
+          <span class="recap-num">3</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <p>Try both in your AI tool. Record both answers.</p>
+        </div>
+      </div>
+
+      <p class="hint" style="margin-top:12px;">You will need an approved AI tool open beside this page.</p>
+    </section>
+
+    <div class="page-nav">
+      <button type="button" class="btn-next" data-target="1">
+        Start
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- PAGE 2 — exercise 1 (missing context) -->
+  <div id="page-2" class="page" hidden>
+
+    <div class="page-nav page-nav-start">
+      <button type="button" class="btn-back" data-target="0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back
+      </button>
+    </div>
+
+    <section>
+      <h2>Exercise 1 of 5</h2>
+      <div class="weak-request">&ldquo;You are a workshop instructor. Write a safety reminder. Format it as 3 points for the noticeboard.&rdquo;</div>
+
+      <p class="hint">What is missing?</p>
+      <div class="diag-row" data-missing="context">
+        <button type="button" class="diag-chip" data-el="context">Context</button>
+        <button type="button" class="diag-chip" data-el="role">Role</button>
+        <button type="button" class="diag-chip" data-el="task">Task</button>
+        <button type="button" class="diag-chip" data-el="format">Format</button>
+      </div>
+      <button type="button" class="btn-check">Check my answer</button>
+      <p class="diag-feedback" hidden></p>
+
+      <div class="practice-box">
+        <label for="ex1-rewrite">Your rewrite &mdash; add the missing part</label>
+        <textarea id="ex1-rewrite" rows="2" placeholder="Rewrite the request here"></textarea>
+
+        <label for="ex1-out-weak">Output from the weak request</label>
+        <textarea id="ex1-out-weak" rows="2" placeholder="Paste the AI's answer here"></textarea>
+
+        <label for="ex1-out-new">Output from your rewrite</label>
+        <textarea id="ex1-out-new" rows="2" placeholder="Paste the AI's answer here"></textarea>
+
+        <p class="mcq-question">Which answer is better?</p>
+        <div class="mcq-group">
+          <div class="mcq-options">
+            <button type="button" class="mcq-option" data-feedback="That happens sometimes. Compare closely: does the weak answer really match what you needed?">Weak request</button>
+            <button type="button" class="mcq-option" data-feedback="Good. A clear request usually gives a more usable answer.">My rewrite</button>
+          </div>
+          <p class="mcq-feedback" hidden></p>
+        </div>
+
+        <label for="ex1-why">Why? <span class="opt">(one line)</span></label>
+        <input type="text" id="ex1-why" placeholder="e.g. it told the AI who it was for">
+      </div>
+    </section>
+
+    <div class="page-nav">
+      <button type="button" class="btn-next" data-target="2">
+        Next
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- PAGE 3 — exercise 2 (missing role) -->
+  <div id="page-3" class="page" hidden>
+
+    <div class="page-nav page-nav-start">
+      <button type="button" class="btn-back" data-target="1">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back
+      </button>
+    </div>
+
+    <section>
+      <h2>Exercise 2 of 5</h2>
+      <div class="weak-request">&ldquo;For new trainees, before the practical, write a safety reminder. Format it as 3 points for the noticeboard.&rdquo;</div>
+
+      <p class="hint">What is missing?</p>
+      <div class="diag-row" data-missing="role">
+        <button type="button" class="diag-chip" data-el="context">Context</button>
+        <button type="button" class="diag-chip" data-el="role">Role</button>
+        <button type="button" class="diag-chip" data-el="task">Task</button>
+        <button type="button" class="diag-chip" data-el="format">Format</button>
+      </div>
+      <button type="button" class="btn-check">Check my answer</button>
+      <p class="diag-feedback" hidden></p>
+
+      <div class="practice-box">
+        <label for="ex2-rewrite">Your rewrite &mdash; add the missing part</label>
+        <textarea id="ex2-rewrite" rows="2" placeholder="Rewrite the request here"></textarea>
+
+        <label for="ex2-out-weak">Output from the weak request</label>
+        <textarea id="ex2-out-weak" rows="2" placeholder="Paste the AI's answer here"></textarea>
+
+        <label for="ex2-out-new">Output from your rewrite</label>
+        <textarea id="ex2-out-new" rows="2" placeholder="Paste the AI's answer here"></textarea>
+
+        <p class="mcq-question">Which answer is better?</p>
+        <div class="mcq-group">
+          <div class="mcq-options">
+            <button type="button" class="mcq-option" data-feedback="That happens sometimes. Compare closely: does the weak answer really match what you needed?">Weak request</button>
+            <button type="button" class="mcq-option" data-feedback="Good. A clear request usually gives a more usable answer.">My rewrite</button>
+          </div>
+          <p class="mcq-feedback" hidden></p>
+        </div>
+
+        <label for="ex2-why">Why? <span class="opt">(one line)</span></label>
+        <input type="text" id="ex2-why" placeholder="e.g. it told the AI who to act as">
+      </div>
+    </section>
+
+    <div class="page-nav">
+      <button type="button" class="btn-next" data-target="3">
+        Next
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- PAGE 4 — exercise 3 (missing task) -->
+  <div id="page-4" class="page" hidden>
+
+    <div class="page-nav page-nav-start">
+      <button type="button" class="btn-back" data-target="2">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back
+      </button>
+    </div>
+
+    <section>
+      <h2>Exercise 3 of 5</h2>
+      <div class="weak-request">&ldquo;You are the class representative. The group's project is due Friday (practice date). Format it as one short message.&rdquo;</div>
+
+      <p class="hint">What is missing?</p>
+      <div class="diag-row" data-missing="task">
+        <button type="button" class="diag-chip" data-el="context">Context</button>
+        <button type="button" class="diag-chip" data-el="role">Role</button>
+        <button type="button" class="diag-chip" data-el="task">Task</button>
+        <button type="button" class="diag-chip" data-el="format">Format</button>
+      </div>
+      <button type="button" class="btn-check">Check my answer</button>
+      <p class="diag-feedback" hidden></p>
+
+      <div class="practice-box">
+        <label for="ex3-rewrite">Your rewrite &mdash; add the missing part</label>
+        <textarea id="ex3-rewrite" rows="2" placeholder="Rewrite the request here"></textarea>
+
+        <label for="ex3-out-weak">Output from the weak request</label>
+        <textarea id="ex3-out-weak" rows="2" placeholder="Paste the AI's answer here"></textarea>
+
+        <label for="ex3-out-new">Output from your rewrite</label>
+        <textarea id="ex3-out-new" rows="2" placeholder="Paste the AI's answer here"></textarea>
+
+        <p class="mcq-question">Which answer is better?</p>
+        <div class="mcq-group">
+          <div class="mcq-options">
+            <button type="button" class="mcq-option" data-feedback="That happens sometimes. Compare closely: does the weak answer really match what you needed?">Weak request</button>
+            <button type="button" class="mcq-option" data-feedback="Good. A clear request usually gives a more usable answer.">My rewrite</button>
+          </div>
+          <p class="mcq-feedback" hidden></p>
+        </div>
+
+        <label for="ex3-why">Why? <span class="opt">(one line)</span></label>
+        <input type="text" id="ex3-why" placeholder="e.g. it said what to actually write">
+      </div>
+    </section>
+
+    <div class="page-nav">
+      <button type="button" class="btn-next" data-target="4">
+        Next
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- PAGE 5 — exercise 4 (missing format) -->
+  <div id="page-5" class="page" hidden>
+
+    <div class="page-nav page-nav-start">
+      <button type="button" class="btn-back" data-target="3">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back
+      </button>
+    </div>
+
+    <section>
+      <h2>Exercise 4 of 5</h2>
+      <div class="weak-request">&ldquo;You are a lab assistant. Students have a chemistry practical today. Write a short safety note.&rdquo;</div>
+
+      <p class="hint">What is missing?</p>
+      <div class="diag-row" data-missing="format">
+        <button type="button" class="diag-chip" data-el="context">Context</button>
+        <button type="button" class="diag-chip" data-el="role">Role</button>
+        <button type="button" class="diag-chip" data-el="task">Task</button>
+        <button type="button" class="diag-chip" data-el="format">Format</button>
+      </div>
+      <button type="button" class="btn-check">Check my answer</button>
+      <p class="diag-feedback" hidden></p>
+
+      <div class="practice-box">
+        <label for="ex4-rewrite">Your rewrite &mdash; add the missing part</label>
+        <textarea id="ex4-rewrite" rows="2" placeholder="Rewrite the request here"></textarea>
+
+        <label for="ex4-out-weak">Output from the weak request</label>
+        <textarea id="ex4-out-weak" rows="2" placeholder="Paste the AI's answer here"></textarea>
+
+        <label for="ex4-out-new">Output from your rewrite</label>
+        <textarea id="ex4-out-new" rows="2" placeholder="Paste the AI's answer here"></textarea>
+
+        <p class="mcq-question">Which answer is better?</p>
+        <div class="mcq-group">
+          <div class="mcq-options">
+            <button type="button" class="mcq-option" data-feedback="That happens sometimes. Compare closely: does the weak answer really match what you needed?">Weak request</button>
+            <button type="button" class="mcq-option" data-feedback="Good. A clear request usually gives a more usable answer.">My rewrite</button>
+          </div>
+          <p class="mcq-feedback" hidden></p>
+        </div>
+
+        <label for="ex4-why">Why? <span class="opt">(one line)</span></label>
+        <input type="text" id="ex4-why" placeholder="e.g. it said how the output should look">
+      </div>
+    </section>
+
+    <div class="page-nav">
+      <button type="button" class="btn-next" data-target="5">
+        Next
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- PAGE 6 — exercise 5 (mixed defect) -->
+  <div id="page-6" class="page" hidden>
+
+    <div class="page-nav page-nav-start">
+      <button type="button" class="btn-back" data-target="4">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back
+      </button>
+    </div>
+
+    <section>
+      <h2>Exercise 5 of 5 <span class="mixed-tag">Mixed</span></h2>
+      <div class="weak-request">&ldquo;Write about machine maintenance.&rdquo;</div>
+
+      <p class="hint">What is missing? <span class="opt">(more than one may be missing)</span></p>
+      <div class="diag-row" data-missing="context,role,format">
+        <button type="button" class="diag-chip" data-el="context">Context</button>
+        <button type="button" class="diag-chip" data-el="role">Role</button>
+        <button type="button" class="diag-chip" data-el="task">Task</button>
+        <button type="button" class="diag-chip" data-el="format">Format</button>
+      </div>
+      <button type="button" class="btn-check">Check my answer</button>
+      <p class="diag-feedback" hidden></p>
+
+      <div class="practice-box">
+        <label for="ex5-rewrite">Your rewrite &mdash; add all the missing parts</label>
+        <textarea id="ex5-rewrite" rows="2" placeholder="Rewrite the request here"></textarea>
+
+        <label for="ex5-out-weak">Output from the weak request</label>
+        <textarea id="ex5-out-weak" rows="2" placeholder="Paste the AI's answer here"></textarea>
+
+        <label for="ex5-out-new">Output from your rewrite</label>
+        <textarea id="ex5-out-new" rows="2" placeholder="Paste the AI's answer here"></textarea>
+
+        <p class="mcq-question">Which answer is better?</p>
+        <div class="mcq-group">
+          <div class="mcq-options">
+            <button type="button" class="mcq-option" data-feedback="That happens sometimes. Compare closely: does the weak answer really match what you needed?">Weak request</button>
+            <button type="button" class="mcq-option" data-feedback="Good. A clear request usually gives a more usable answer.">My rewrite</button>
+          </div>
+          <p class="mcq-feedback" hidden></p>
+        </div>
+
+        <label for="ex5-why">Why? <span class="opt">(one line)</span></label>
+        <input type="text" id="ex5-why" placeholder="e.g. it needed all 4 things, not just one">
+      </div>
+    </section>
+
+    <div class="page-nav">
+      <button type="button" class="btn-next" data-target="6">
+        Review &amp; finish
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- PAGE 7 — review + evidence download -->
+  <div id="page-7" class="page" hidden>
+
+    <div class="page-nav page-nav-start">
+      <button type="button" class="btn-back" data-target="5">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back
+      </button>
+    </div>
+
+    <section>
+      <h2>Your evidence</h2>
+      <p>Check you have all 5 parts for each exercise, then download your answers.</p>
+      <ul class="evidence-list">
+        <li>The weak request</li>
+        <li>Your rewrite</li>
+        <li>The output from the weak request</li>
+        <li>The output from your rewrite</li>
+        <li>Your judgment &mdash; which is better, and why</li>
+      </ul>
+    </section>
+
+    <button type="button" class="btn-next" id="download-btn" style="margin-bottom:14px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      Download my answers
+    </button>
+    <p class="hint">This page does not save your work. Download it, or show your facilitator, before you close this tab.</p>
+
+    <div class="stop-rule">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9A6B00" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+      <div>
+        <span class="label">Reminder</span>
+        <p>Never type real names, marks, phone numbers or ID numbers into an AI tool. Use made-up details for practice.</p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <button type="button" class="btn-back" data-target="0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"></path><polyline points="21 3 21 9 15 9"></polyline></svg>
+        Start over
+      </button>
+    </div>
+
+  </div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
