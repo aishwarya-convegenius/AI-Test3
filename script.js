@@ -224,7 +224,9 @@
         var head = s.querySelector('h1, h2');
         if (head) {
           head.setAttribute('tabindex', '-1');
-          try { head.focus({ preventScroll: true }); } catch (e) { head.focus(); }
+          // the layer frees the new screen for focus a moment later: focus its heading then
+          var focusHead = function () { if (Deck.current() === s) { try { head.focus({ preventScroll: true }); } catch (e) { head.focus(); } } };
+          focusHead(); setTimeout(focusHead, 120);
         }
       }
     },
@@ -346,28 +348,28 @@
     { weak: 'You are a workshop instructor. Write a safety reminder. Format it as 3 points for the noticeboard.',
       missing: ['context'],
       why: 'The AI does not know who will read the reminder, or why.',
-      tip: 'Add who it is for, and why. For example: “For new trainees, before their first practical, …”',
-      whyHint: 'e.g. It told the AI who the reminder was for.' },
+      tip: 'Add who the reminder is for, and why. You can start with “For new trainees, before their first practical, …”',
+      whyHint: 'Example: It told the AI who the reminder was for.' },
     { weak: 'For new trainees, before the practical, write a safety reminder. Format it as 3 points for the noticeboard.',
       missing: ['role'],
       why: 'The AI does not know whose voice to use.',
-      tip: 'Add who the AI should act as. For example: “You are a workshop instructor.”',
-      whyHint: 'e.g. It told the AI who to act as.' },
+      tip: 'Add who the AI should act as. You can start with “You are a workshop instructor.”',
+      whyHint: 'Example: It told the AI who to act as.' },
     { weak: 'You are the class representative. The group project is due on Friday (a made-up date). Format it as one short message.',
       missing: ['task'],
-      why: 'It never says what the AI should write.',
-      tip: 'Add what the AI should make. For example: “Write a reminder asking everyone to finish their part.”',
-      whyHint: 'e.g. It said what to actually write.' },
+      why: 'The request never says what the AI should write.',
+      tip: 'Add what the AI should make. You can add “Write a reminder asking everyone to finish their part.”',
+      whyHint: 'Example: It said what the AI should write.' },
     { weak: 'You are a lab assistant. Students have a chemistry practical today. Write a short safety note.',
       missing: ['format'],
-      why: 'It never says how long the note should be, or what shape it should take.',
-      tip: 'Add how it should look. For example: “Format it as 4 short points for the board.”',
-      whyHint: 'e.g. It said how the answer should look.' },
+      why: 'The request never says how long the note should be, or how it should look.',
+      tip: 'Add how the note should look. You can add “Format it as 4 short points for the board.”',
+      whyHint: 'Example: It said how the answer should look.' },
     { weak: 'Write about machine maintenance.',
       missing: ['role', 'context', 'format'], mixed: true,
-      why: 'Only a vague task is there. The AI does not know who to be, who it is for, or how it should look.',
-      tip: 'Add all the missing parts: who the AI is, who it is for and why, and how it should look.',
-      whyHint: 'e.g. It needed all 4 parts, not just one.' }
+      why: 'The request has only a vague task. The AI does not know who to be, who the answer is for, or how it should look.',
+      tip: 'Add who the AI should act as, who the answer is for and why, and how it should look.',
+      whyHint: 'Example: It needed all 4 parts, not just one.' }
   ];
 
   // State for each exercise. Nothing leaves this page.
@@ -375,51 +377,57 @@
     return { picked: [], checked: false, rewrite: null, better: '' };
   });
 
-  function names(list) {
-    var l = list.map(function (p) { return LABEL[p]; });
+  function and(l) {
     return l.length > 1 ? l.slice(0, -1).join(', ') + ' and ' + l[l.length - 1] : l[0];
+  }
+  function names(list) {
+    return and(list.map(function (p) { return LABEL[p]; }));
   }
 
   /* ---------- build three slides per exercise ---------- */
   var html = EXERCISES.map(function (ex, k) {
     var n = k + 1, last = n === EXERCISES.length;
     var chips = PARTS.map(function (p) {
-      return '<button type="button" class="chip" aria-pressed="false" data-part="' + p + '">' + LABEL[p] + '</button>';
+      return '<button type="button" class="chip" aria-pressed="false" data-part="' + p + '"><img class="chip-ic b" src="assets/icons/blue/icon-' + p + '.webp" alt="" aria-hidden="true"><img class="chip-ic w" src="assets/icons/icon-' + p + '.webp" alt="" aria-hidden="true">' + LABEL[p] + '</button>';
     }).join('');
     return '' +
       // 1 · Spot the gap
       '<section class="slide" id="ex' + n + '-spot" data-next="Check answer" data-icon="check">' +
-        '<div class="card narrow">' +
+        '<div class="card narrow" data-saa-lead>' +
           '<div class="head"><div class="eyebrow">Exercise ' + n + ' of 5 · Spot the gap' + (ex.mixed ? ' · Mixed' : '') + '</div>' +
-          '<h2 class="title">What is missing from this request?</h2></div>' +
-          '<div class="doc weak"><div class="doc-head">' + ic('chat') + 'Weak request</div><p class="weak-text">“' + esc(ex.weak) + '”</p></div>' +
-          '<div class="field"><span class="label" id="ex' + n + '-lbl">' +
-            (ex.mixed ? 'Tap every part that is missing. <span class="help">More than one may be missing.</span>' : 'Tap the part that is missing.') +
-          '</span><div class="chips parts" role="group" aria-labelledby="ex' + n + '-lbl" data-ex="' + k + '">' + chips + '</div></div>' +
-          '<div class="spot-fb" id="ex' + n + '-fb" aria-live="polite"></div>' +
+          '<h2 class="title">What is missing from this request?</h2>' +
+          '<p class="lede">' + (ex.mixed ? 'More than one part may be missing from this request.' : 'This request is missing 1 of the 4 parts.') + '</p>' +
+          '<p class="do saa-do"><b class="saa-do-label">Your task.</b> ' +
+            (ex.mixed ? 'Tap every part that is missing, then press Check answer.' : 'Tap the part that is missing, then press Check answer.') + '</p></div>' +
+          '<div class="doc weak" data-saa-say><div class="doc-head">' + ic('chat') + 'Weak request</div><p class="weak-text">“' + esc(ex.weak) + '”</p></div>' +
+          '<div class="field"><span class="label saa-vo-skip" id="ex' + n + '-lbl">The 4 parts of a request</span><div class="chips parts" role="group" aria-labelledby="ex' + n + '-lbl" data-ex="' + k + '">' + chips + '</div></div>' +
+          '<div class="spot-fb saa-k-why" id="ex' + n + '-fb" aria-live="polite"></div>' +
         '</div>' +
       '</section>' +
       // 2 · Rewrite it
       '<section class="slide" id="ex' + n + '-write">' +
         '<div class="card narrow">' +
           '<div class="head"><div class="eyebrow">Exercise ' + n + ' of 5 · Rewrite it</div>' +
-          '<h2 class="title">Add the missing part' + (ex.missing.length > 1 ? 's' : '') + '</h2></div>' +
-          '<div class="callout info">' + ic('pen') + '<span><strong>Missing: ' + names(ex.missing) + '.</strong> ' + esc(ex.tip) + '</span></div>' +
-          '<div class="field"><label class="label" for="ex' + n + '-rewrite">Your rewrite <span class="help">Edit the weak request below.</span></label>' +
+          '<h2 class="title">Add the missing part' + (ex.missing.length > 1 ? 's' : '') + ' to the request.</h2>' +
+          '<p class="lede"><strong>' + ex.missing.map(function (p) { return '<img class="hint-ic" src="assets/icons/blue/icon-' + p + '.webp" alt="" aria-hidden="true">'; }).join('') + names(ex.missing) + (ex.missing.length > 1 ? ' are' : ' is') + ' missing.</strong> ' + esc(ex.tip) + '</p>' +
+          '<p class="do saa-do"><b class="saa-do-label">Your task.</b> Edit the weak request in the box and add the missing part' + (ex.missing.length > 1 ? 's' : '') + '.</p></div>' +
+          '<div class="field"><label class="label" for="ex' + n + '-rewrite">Your rewrite</label>' +
           '<textarea class="input" id="ex' + n + '-rewrite" rows="4"></textarea></div>' +
           '<div class="row">' +
             '<button type="button" class="btn btn-ghost btn-sm" data-copy-weak="' + k + '">' + ic('copy') + 'Copy weak request</button>' +
             '<button type="button" class="btn btn-ghost btn-sm" data-copy-new="' + k + '">' + ic('copy') + 'Copy my rewrite</button>' +
           '</div>' +
-          '<p class="small">Next, you will try both in your AI tool.</p>' +
+          '<p class="small">Next, you try both requests in your AI tool.</p>' +
+          '<p class="ga-gate saa-k-why" data-saa-locked data-gate="write" data-ex="' + k + '" aria-live="polite"></p>' +
         '</div>' +
       '</section>' +
       // 3 · Compare
       '<section class="slide" id="ex' + n + '-compare" data-next="' + (last ? 'Review and finish' : 'Next exercise') + '">' +
         '<div class="card">' +
           '<div class="head"><div class="eyebrow">Exercise ' + n + ' of 5 · Compare</div>' +
-          '<h2 class="title">Try both, then compare</h2>' +
-          '<p class="lede">Ask your AI tool the weak request, then your rewrite. Paste each answer here.</p></div>' +
+          '<h2 class="title">Try both requests and compare the answers.</h2>' +
+          '<p class="lede">Ask your AI tool the weak request first, then your rewrite. Paste each answer in its box.</p>' +
+          '<p class="do saa-do"><b class="saa-do-label">Your task.</b> Paste both answers, choose the better one and say why.</p></div>' +
           '<div class="grid g2">' +
             '<div class="field"><label class="label" for="ex' + n + '-out-weak">Answer to the weak request</label>' +
             '<textarea class="input" id="ex' + n + '-out-weak" rows="4" placeholder="Paste the AI’s answer here"></textarea></div>' +
@@ -432,10 +440,12 @@
               '<button type="button" aria-pressed="false" data-v="Weak request">' + ic('chat') + 'Weak request</button>' +
               '<button type="button" aria-pressed="false" data-v="My rewrite">' + ic('pen') + 'My rewrite</button>' +
             '</div></div>' +
-            '<div class="field grow"><label class="label" for="ex' + n + '-why">Why? <span class="help">One line is enough.</span></label>' +
+            '<div class="field grow"><label class="label" for="ex' + n + '-why">Why is it better? <span class="help">One line is enough.</span></label>' +
             '<input class="input" type="text" id="ex' + n + '-why" placeholder="' + esc(ex.whyHint) + '"></div>' +
           '</div>' +
-          '<div id="ex' + n + '-better-fb"></div>' +
+          '<div id="ex' + n + '-better-fb" class="saa-k-why"></div>' +
+          '<p class="ga-gate saa-k-why" data-saa-locked data-gate="compare" data-ex="' + k + '" aria-live="polite"></p>' +
+          (n === 1 ? '<button type="button" class="btn-link see-ex" data-see-example aria-haspopup="dialog"><img class="see-ic" src="assets/icons/icon-compare.webp" alt="" aria-hidden="true">See example</button>' : '') +
         '</div>' +
       '</section>';
   }).join('');
@@ -462,13 +472,15 @@
       var p = c.getAttribute('data-part');
       c.disabled = true;
       c.setAttribute('aria-pressed', 'false');
-      if (ex.missing.indexOf(p) > -1) c.classList.add('right');
-      else if (s.picked.indexOf(p) > -1) c.classList.add('wrong');
+      var miss = ex.missing.indexOf(p) > -1, pick = s.picked.indexOf(p) > -1;
+      if (miss && pick) c.classList.add('right');
+      else if (miss) c.classList.add('miss');        /* a missing part the learner did not tap */
+      else if (pick) c.classList.add('wrong');
     });
     var meaning = ex.missing.map(function (p) { return MEANS[p]; }).join(' ');
     $('ex' + n + '-fb').innerHTML = ok
-      ? '<div class="fb ok">' + ic('check') + '<div class="fb-body"><span class="fb-title">Correct. ' + names(ex.missing) + (ex.missing.length > 1 ? ' are' : ' is') + ' missing.</span><span>' + esc(ex.why) + ' ' + esc(meaning) + '</span></div></div>'
-      : '<div class="fb no">' + ic('alert') + '<div class="fb-body"><span class="fb-title">Not quite. The missing part' + (ex.missing.length > 1 ? 's are ' : ' is ') + names(ex.missing) + '.</span><span>' + esc(ex.why) + ' ' + esc(meaning) + '</span></div></div>';
+      ? '<div class="fb ok">' + ic('check') + '<div class="fb-body"><span class="fb-title">Yes. ' + names(ex.missing) + (ex.missing.length > 1 ? ' are' : ' is') + ' missing.</span> <span>' + esc(ex.why) + ' ' + esc(meaning) + '</span></div></div>'
+      : '<div class="fb no">' + ic('alert') + '<div class="fb-body"><span class="fb-title">Not quite. The missing part' + (ex.missing.length > 1 ? 's are ' : ' is ') + names(ex.missing) + '.</span> <span>' + esc(ex.why) + ' ' + esc(meaning) + '</span></div></div>';
   }
 
   /* ---------- rewrite ---------- */
@@ -478,14 +490,15 @@
     var k = parseInt(b.getAttribute('data-copy-weak') || b.getAttribute('data-copy-new'), 10);
     var weak = b.hasAttribute('data-copy-weak');
     var text = weak ? EXERCISES[k].weak : $('ex' + (k + 1) + '-rewrite').value.trim();
-    if (!text) { SAA.toast('Write your rewrite first'); return; }
-    SAA.copyText(text, function () { SAA.toast(weak ? 'Weak request copied' : 'Your rewrite is copied'); });
+    if (!text) { SAA.toast('Write your rewrite first.'); return; }
+    if (!weak && text === EXERCISES[k].weak) { SAA.toast('Add the missing part first.'); return; }
+    SAA.copyText(text, function () { SAA.toast(weak ? 'The weak request is copied.' : 'Your rewrite is copied.'); });
   });
 
   /* ---------- compare ---------- */
   var BETTER_FB = {
-    'Weak request': ['info', 'That can happen. Look again: does the weak answer really give you what you needed?'],
-    'My rewrite': ['ok', 'Good. A clear request usually gives a more useful answer.']
+    'Weak request': ['info', 'That can happen. Look again and ask if the weak answer really gives you what you need.'],
+    'My rewrite': ['ok', 'Yes. A clear request usually gives a more useful answer.']
   };
   document.querySelectorAll('[data-better]').forEach(function (seg) {
     var k = parseInt(seg.getAttribute('data-better'), 10);
@@ -500,12 +513,30 @@
     });
   });
 
+  /* ---------- "See example": how to try both requests (exercise 1) ---------- */
+  var exPop = document.createElement('div');
+  exPop.className = 'ex-pop';
+  exPop.hidden = true;
+  exPop.innerHTML = '<div class="ex-pop-box" role="dialog" aria-modal="true" aria-label="Example: try both requests">' +
+    '<figure class="ex-fig" role="img" aria-label="Example. Left: the weak request in an AI tool gives a vague answer: be careful, follow safety rules, work responsibly. Right: the rewrite with context gives a clearer answer: wear the safety gear, wait for your instructor, tell your instructor if anything looks unsafe. An arrow shows each answer copied into its own paste box.">' +
+    '<span class="half l"><img src="assets/tool-chat-frame-compare.webp" alt=""></span><span class="half r"><img src="assets/tool-chat-frame-compare.webp" alt=""></span></figure>' +
+    '<button type="button" class="btn btn-ghost btn-sm ex-pop-close">' + ic('x') + 'Close</button></div>';
+  document.body.appendChild(exPop);
+  var exOpener = null;
+  function closeEx() { if (exPop.hidden) return; exPop.hidden = true; if (exOpener) { try { exOpener.focus(); } catch (e) {} } }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-see-example]');
+    if (b) { exOpener = b; exPop.hidden = false; exPop.querySelector('.ex-pop-close').focus(); return; }
+    if (!exPop.hidden && (e.target === exPop || e.target.closest('.ex-pop-close'))) closeEx();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeEx(); });
+
   /* ---------- evidence and download ---------- */
   function val(id) { var el = $(id); return el ? el.value.trim() : ''; }
   function rewriteDone(k) { var v = val('ex' + (k + 1) + '-rewrite'); return !!v && v !== EXERCISES[k].weak; }
   function gaps(k) {
     var n = k + 1, list = [];
-    if (!state[k].checked) list.push(['spot', 'spot the gap']);
+    if (!state[k].checked) list.push(['spot', 'the missing part']);
     if (!rewriteDone(k)) list.push(['write', 'your rewrite']);
     if (!val('ex' + n + '-out-weak') || !val('ex' + n + '-out-new')) list.push(['compare', 'both answers']);
     if (!state[k].better || !val('ex' + n + '-why')) list.push(['compare', 'your choice and reason']);
@@ -521,7 +552,7 @@
       var g = gaps(k);
       return '<li><span class="dot-ic sm ' + (g.length ? '' : 'ok') + '">' + ic(g.length ? 'pen' : 'check') + '</span>' +
         '<span class="li-main"><span class="li-title">Exercise ' + (k + 1) + ' · “' + esc(short(ex.weak)) + '”</span>' +
-        '<span class="li-sub">' + (g.length ? 'Still to do: ' + g.map(function (x) { return x[1]; }).join(', ') : 'All done') + '</span></span>' +
+        '<span class="li-sub">' + (g.length ? 'You still need to add ' + and(g.map(function (x) { return x[1]; })) + '.' : 'This exercise is done.') + '</span></span>' +
         (g.length ? '<button type="button" class="btn-link" data-go="ex' + (k + 1) + '-' + g[0][0] + '">Open</button>' : '') + '</li>';
     }).join('');
   }
@@ -543,15 +574,36 @@
     });
     return lines.join('\n');
   }
-  function save() {
+  function allGaps() { var n = 0; EXERCISES.forEach(function (ex, k) { n += gaps(k).length ? 1 : 0; }); return n; }
+  function save(quiet) {
     SAA.download('rewrite-five-weak-requests-answers.txt', buildFile());
-    SAA.toast('Your answers are downloaded');
+    var open = allGaps();
+    $('done-status').textContent = open ? 'Your answers are downloaded, but ' + open + (open > 1 ? ' exercises are' : ' exercise is') + ' not finished.' : 'Your answers are downloaded.';
+    $('done-status').className = 'status saa-vo-skip ' + (open ? 'bad' : 'ok');
+    $('done-lede').textContent = open ? 'Go back, finish every exercise and download again. Then share your file with your facilitator.' : 'You found the gaps, fixed 5 requests and compared the answers. Share your file with your facilitator.';
+    if (!quiet) SAA.toast('Your answers are downloaded.');
   }
-  $('download-again').addEventListener('click', save);
+  $('download-again').addEventListener('click', function () { save(true); });   /* the status line says it; a toast would cover the rule line */
+  // Start over: a clean reload clears every answer
+  $('start-over').addEventListener('click', function () { window.__g7Leaving = true; location.reload(); });
+  var warned = false;
 
   /* ---------- hooks ---------- */
   var hooks = {
-    evidence: { enter: drawEvidence, primary: function () { save(); } }
+    evidence: {
+      enter: function () { warned = false; $('evidence-warn').hidden = true; drawEvidence(); },
+      primary: function () {
+        // unfinished work: say so once, then the learner may still download
+        if (allGaps() && !warned) {
+          warned = true; $('evidence-warn').hidden = false;
+          var wt = $('evidence-warn').lastElementChild; wt.textContent = wt.textContent;   /* new text: the layer reads it */
+          Deck.setPrimary('Download anyway', { icon: 'download' });
+          Deck.fit();
+          return false;
+        }
+        save(true);
+      }
+    }
   };
   EXERCISES.forEach(function (ex, k) {
     var n = k + 1;
@@ -578,5 +630,65 @@
     };
   });
 
+  /* ---------- gates: Continue on the rewrite and compare screens waits for the work ----------
+     Each gate line carries data-saa-locked until its task is done, so the shared kit dims
+     Continue the same way as on the kit screens; this script blocks the click itself. Pressing it early shows what is still needed. */
+  var MIN_NEW = 3, MIN_PASTE = 15, MIN_WHY = 3;
+  function wordList(v) { return (v.toLowerCase().match(/[a-z0-9\u0900-\u097f]+/g) || []); }
+  function words(v) { return v.split(/\s+/).filter(function (w) { return /\w/.test(w); }).length; }
+  function gateMsg(g) {
+    var k = +g.getAttribute('data-ex'), n = k + 1, ex = EXERCISES[k];
+    if (g.getAttribute('data-gate') === 'write') {
+      // at least MIN_NEW words that are not in the weak request (retyping or cutting it does not count)
+      var old = {}; wordList(ex.weak).forEach(function (w) { old[w] = 1; });
+      var added = {}; wordList(val('ex' + n + '-rewrite')).forEach(function (w) { if (!old[w]) added[w] = 1; });
+      return Object.keys(added).length >= MIN_NEW ? '' : 'Add what is missing to the request first.';
+    }
+    if (val('ex' + n + '-out-weak').length < MIN_PASTE || val('ex' + n + '-out-new').length < MIN_PASTE) return 'Paste both answers first.';
+    if (!state[k].better) return 'Choose the better answer first.';
+    if (words(val('ex' + n + '-why')) < MIN_WHY) return 'Say why it is better first.';
+    return '';
+  }
+  var gates = Array.prototype.slice.call(document.querySelectorAll('.ga-gate'));
+  function refreshGates() {
+    gates.forEach(function (g) {
+      var d = !gateMsg(g);
+      if (d !== g.classList.contains('is-done')) {
+        g.classList.toggle('is-done', d);
+        if (d) { g.removeAttribute('data-saa-locked'); } else { g.setAttribute('data-saa-locked', ''); }
+        if (d) { g.textContent = ''; try { g.dispatchEvent(new CustomEvent('saa:done', { bubbles: true })); } catch (e) {} }
+      }
+    });
+  }
+  document.addEventListener('input', refreshGates);
+  document.addEventListener('click', function () { setTimeout(refreshGates, 0); });
+  // registered before saa-kit.js loads
+  document.addEventListener('click', function (e) {
+    if (!(e.target.closest && e.target.closest('#primary'))) return;
+    var s = Deck.current(), g = s && s.querySelector('.ga-gate');
+    if (!g) return;
+    var m = gateMsg(g);
+    if (!m) { refreshGates(); return; }
+    e.preventDefault(); e.stopImmediatePropagation();
+    refreshGates();
+    g.textContent = m;
+    g.classList.remove('ga-shake'); void g.offsetWidth; g.classList.add('ga-shake');
+    var f = s.querySelector('textarea, input');
+    if (g.getAttribute('data-gate') === 'compare') {
+      f = [].filter.call(s.querySelectorAll('textarea, input'), function (x) { return x.tagName === 'TEXTAREA' ? x.value.trim().length < MIN_PASTE : words(x.value) < MIN_WHY; })[0];
+      if (m.indexOf('Choose') === 0) f = s.querySelector('.seg button');
+    }
+    if (f) { try { f.focus({ preventScroll: false }); } catch (x) { f.focus(); } }
+    Deck.fit();
+  }, true);
+
+  // typed or pasted work is lost on a refresh: ask first
+  window.addEventListener('beforeunload', function (e) {
+    if (window.__g7Leaving) return;
+    var typed = EXERCISES.some(function (ex, k) { var n = k + 1; return rewriteDone(k) || val('ex' + n + '-out-weak') || val('ex' + n + '-out-new') || val('ex' + n + '-why'); });
+    if (typed) { e.preventDefault(); e.returnValue = ''; }
+  });
+
   Deck.init(hooks);
+  refreshGates();
 })();

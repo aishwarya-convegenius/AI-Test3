@@ -1,0 +1,302 @@
+{
+ "v5121d917": {
+  "text": "Rewrite Five Weak Requests. You find what is missing in 5 weak requests. You rewrite each one and compare the two answers.",
+  "kind": "screen",
+  "screens": [
+   1
+  ]
+ },
+ "v016e855e": {
+  "text": "A strong request has 4 parts. Each part tells the AI one thing. The example below has all 4 parts. Your task. Tap each card to see what the part means.",
+  "kind": "screen",
+  "screens": [
+   2
+  ]
+ },
+ "v164429bd": {
+  "text": "What is missing from this request? This request is missing 1 of the 4 parts. Your task. Tap the part that is missing, then press Check answer.",
+  "kind": "screen",
+  "screens": [
+   3,
+   6,
+   9,
+   12
+  ]
+ },
+ "v91a08a83": {
+  "text": "Add the missing part to the request. Context is missing. Add who the reminder is for, and why. You can start with “For new trainees, before their first practical, …”. Your task. Edit the weak request in the box and add the missing part.",
+  "kind": "screen",
+  "screens": [
+   4
+  ]
+ },
+ "ve4387f38": {
+  "text": "Try both requests and compare the answers. Ask your AI tool the weak request first, then your rewrite. Paste each answer in its box. Your task. Paste both answers, choose the better one and say why.",
+  "kind": "screen",
+  "screens": [
+   5,
+   8,
+   11,
+   14,
+   17
+  ]
+ },
+ "v1ec16749": {
+  "text": "Add the missing part to the request. Role is missing. Add who the AI should act as. You can start with “You are a workshop instructor.” Your task. Edit the weak request in the box and add the missing part.",
+  "kind": "screen",
+  "screens": [
+   7
+  ]
+ },
+ "v4ead89e6": {
+  "text": "Add the missing part to the request. Task is missing. Add what the AI should make. You can add “Write a reminder asking everyone to finish their part.” Your task. Edit the weak request in the box and add the missing part.",
+  "kind": "screen",
+  "screens": [
+   10
+  ]
+ },
+ "v0e0a11eb": {
+  "text": "Add the missing part to the request. Format is missing. Add how the note should look. You can add “Format it as 4 short points for the board.” Your task. Edit the weak request in the box and add the missing part.",
+  "kind": "screen",
+  "screens": [
+   13
+  ]
+ },
+ "v75f6136b": {
+  "text": "What is missing from this request? More than one part may be missing from this request. Your task. Tap every part that is missing, then press Check answer.",
+  "kind": "screen",
+  "screens": [
+   15
+  ]
+ },
+ "vc0f7ab0f": {
+  "text": "Add the missing parts to the request. Role, Context and Format are missing. Add who the AI should act as, who the answer is for and why, and how it should look. Your task. Edit the weak request in the box and add the missing parts.",
+  "kind": "screen",
+  "screens": [
+   16
+  ]
+ },
+ "vb2b7e7da": {
+  "text": "Check your work, then download your answers. Each exercise needs your rewrite and both answers. It also needs the better answer and why. Your task. Open any exercise that is not done, then download your answers.",
+  "kind": "screen",
+  "screens": [
+   18
+  ]
+ },
+ "v18091099": {
+  "text": "Rewrite Five Weak Requests. Your answers are downloaded. You found the gaps, fixed 5 requests and compared the answers. Share your file with your facilitator. Remember this rule. Never type real names, marks, phone numbers or ID numbers into an AI tool.",
+  "kind": "screen",
+  "screens": [
+   19
+  ]
+ },
+ "vb0edbb0d": {
+  "text": "Yes, that is right.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "v5f4ff743": {
+  "text": "Not quite. Try again.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "v4a004b3d": {
+  "text": "All sorted. Well done.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "v912cd8bc": {
+  "text": "Not that one. Read it again and try the other box.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "ve5c0f2ee": {
+  "text": "Yes. That is the right order.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "v12d1dc0b": {
+  "text": "Not yet. The red steps are in the wrong place.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "v2ca8188e": {
+  "text": "All stamped. Well done.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "v35550fdb": {
+  "text": "Not quite. Read it again.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "ve981313a": {
+  "text": "Yes.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "vf188dfeb": {
+  "text": "Role says who the AI should act as.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "vf7806e5f": {
+  "text": "Context says who it is for, and why.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "vbe63d5d0": {
+  "text": "Task says what the AI should make.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "v2e96bfd1": {
+  "text": "Format says how the answer should look.",
+  "kind": "feedback",
+  "screens": []
+ },
+ "vdd9d92df": {
+  "text": "What is missing from this request? This request is missing 1 of the 4 parts. Your task. Tap the part that is missing, then press Check answer. Weak request. “You are a workshop instructor. Write a safety reminder. Format it as 3 points for the noticeboard.”",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v10ef8772": {
+  "text": "What is missing from this request? This request is missing 1 of the 4 parts. Your task. Tap the part that is missing, then press Check answer. Weak request. “For new trainees, before the practical, write a safety reminder. Format it as 3 points for the noticeboard.”",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "va3a9d333": {
+  "text": "What is missing from this request? This request is missing 1 of the 4 parts. Your task. Tap the part that is missing, then press Check answer. Weak request. “You are the class representative. The group project is due on Friday (a made-up date). Format it as one short message.”",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "vbd1a630f": {
+  "text": "What is missing from this request? This request is missing 1 of the 4 parts. Your task. Tap the part that is missing, then press Check answer. Weak request. “You are a lab assistant. Students have a chemistry practical today. Write a short safety note.”",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v1b67b1cf": {
+  "text": "What is missing from this request? More than one part may be missing from this request. Your task. Tap every part that is missing, then press Check answer. Weak request. “Write about machine maintenance.”",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "vb3ba52b2": {
+  "text": "Rewrite Five Weak Requests. You found the gaps, fixed 5 requests and compared the answers. Share your file with your facilitator. Remember this rule. Never type real names, marks, phone numbers or ID numbers into an AI tool.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v35788d3b": {
+  "text": "Yes. Context is missing. The AI does not know who will read the reminder, or why. Context says who it is for, and why.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v8c722521": {
+  "text": "Not quite. The missing part is Context. The AI does not know who will read the reminder, or why. Context says who it is for, and why.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "vda9ecfc6": {
+  "text": "Yes. Role is missing. The AI does not know whose voice to use. Role says who the AI should act as.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v593ecd4e": {
+  "text": "Not quite. The missing part is Role. The AI does not know whose voice to use. Role says who the AI should act as.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "vf480c695": {
+  "text": "Yes. Task is missing. The request never says what the AI should write. Task says what the AI should make.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "va5946aef": {
+  "text": "Not quite. The missing part is Task. The request never says what the AI should write. Task says what the AI should make.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v483e6b8a": {
+  "text": "Yes. Format is missing. The request never says how long the note should be, or how it should look. Format says how the answer should look.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v16e9b510": {
+  "text": "Not quite. The missing part is Format. The request never says how long the note should be, or how it should look. Format says how the answer should look.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "vb265ccf3": {
+  "text": "Yes. Role, Context and Format are missing. The request has only a vague task. The AI does not know who to be, who the answer is for, or how it should look. Role says who the AI should act as. Context says who it is for, and why. Format says how the answer should look.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v92eba712": {
+  "text": "Not quite. The missing parts are Role, Context and Format. The request has only a vague task. The AI does not know who to be, who the answer is for, or how it should look. Role says who the AI should act as. Context says who it is for, and why. Format says how the answer should look.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v13d9e466": {
+  "text": "That can happen. Look again and ask if the weak answer really gives you what you need.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v5f5ba7ec": {
+  "text": "Yes. A clear request usually gives a more useful answer.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v7a46cd93": {
+  "text": "Some exercises are not finished. Tap Open to finish them, or tap Download anyway.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v2b1cc7ff": {
+  "text": "Add what is missing to the request first.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v083f2914": {
+  "text": "Paste both answers first.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v8e1bc499": {
+  "text": "Choose the better answer first.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v17865d07": {
+  "text": "Say why it is better first.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ },
+ "v9f4d8c49": {
+  "text": "Rewrite Five Weak Requests. Go back, finish every exercise and download again. Then share your file with your facilitator. Remember this rule. Never type real names, marks, phone numbers or ID numbers into an AI tool.",
+  "kind": "screen",
+  "screens": [],
+  "from": "playthrough"
+ }
+}
